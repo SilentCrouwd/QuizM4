@@ -28,28 +28,46 @@ const questions = [
     correct: "Au",
   },
 ];
-
+// Start Index for Array
 let startIndex = 0;
+let punkte = 0;
 
+//OnLOadListener
 document.addEventListener("DOMContentLoaded", showQuestion(startIndex));
 
 function showQuestion(index) {
+  // Set Question
+
   let newQuestion = document.getElementById("questtion");
   newQuestion.innerHTML = questions[index].question;
 
   let answerContainer = document.getElementById("answerContainer");
   answerContainer.innerHTML = "";
 
-  questions[index].answer.forEach((element) => {
-    let newAnswer = document.createElement("p");
-    newAnswer.classList.add("answer");
-    newAnswer.innerHTML = element;
+  //   Randomize Answers and Create Answers
 
-    newAnswer.addEventListener("click", () => {
-      showAnswer();
-    });
-    answerContainer.appendChild(newAnswer);
-  });
+  let randomAnswer = randomizeAnswer(questions[index].answer).forEach(
+    (element) => {
+      let newAnswer = document.createElement("p");
+      newAnswer.classList.add("answer");
+      newAnswer.innerHTML = element;
+
+      // Set Eventlistener and Check Answers
+      newAnswer.addEventListener("click", () => {
+        if (newAnswer.innerHTML === questions[index].correct) {
+          alert(`Richtig ${newAnswer.innerHTML}`);
+          newAnswer.classList.add("correct");
+          punkte++;
+          setScore(punkte);
+        } else {
+          alert(`${newAnswer.innerHTML} ist leider Falsch`);
+          newAnswer.classList.add("notCorrect");
+        }
+      });
+      answerContainer.appendChild(newAnswer);
+    },
+  );
+  setScore(punkte);
 }
 
 function nextQuestion() {
@@ -59,6 +77,7 @@ function nextQuestion() {
     console.log("next");
   } else {
     startIndex = 0;
+    punkte = 0;
     showQuestion(startIndex);
     console.log("von vorne");
   }
@@ -73,4 +92,18 @@ function showAnswer() {
       elm.classList.add("notCorrect");
     }
   });
+}
+
+function randomizeAnswer(answerArray) {
+  let randomAnswerArr = [];
+  answerArray.forEach((elm) => {
+    let index = Math.floor(Math.random() * answerArray.length);
+    randomAnswerArr.splice(index, 0, elm);
+  });
+
+  return randomAnswerArr;
+}
+
+function setScore(currScore) {
+  document.getElementById("score").innerHTML = `Punkte: ${currScore}`;
 }
