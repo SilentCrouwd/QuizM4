@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz Modul-4</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --bg-Color: rgb(209, 209, 209);
+        --borderRadius: 0.5rem;
+        --boxschadow: 1px 1px 5px 1px var(--bg-Color);
+      }
+      body {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      h1 {
+        font-size: 5rem;
+      }
+      .quiz-Container {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        box-shadow: var(--boxschadow);
+        padding: 1rem;
+      }
+      .quiz-Container h2 {
+        font-size: 4rem;
+        background-color: var(--bg-Color);
+        min-width: 90vw;
+        border-radius: var(--borderRadius);
+        padding: 0.5rem;
+        text-align: center;
+      }
+      .answer-Container {
+        margin-top: 1.5rem;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        gap: 2.5rem;
+      }
+      .answer {
+        font-size: 1rem;
+        background-color: var(--bg-Color);
+        text-align: center;
+        border-radius: var(--borderRadius);
+        padding: 2.5rem;
+        box-shadow: var(--boxschadow);
+      }
+      .btn-standart {
+        border: none;
+        background-color: var(--bg-Color);
+        border-radius: var(--borderRadius);
+        padding: 1rem;
+        margin-top: 0.5rem;
+      }
+      .answer:hover,
+      .btn-standart:hover {
+        background-color: gray;
+        color: white;
+        transition: all ease 0.3s;
+        cursor: pointer;
+      }
+      .correct {
+        background-color: green;
+      }
+      .notCorrect {
+        background-color: red;
+      }
+      .correct:hover {
+        background-color: green;
+      }
+      .notCorrect:hover {
+        background-color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <head>
+      <h1>Quiz Modul-4</h1>
+    </head>
+    <main>
+      <div class="quiz-Container">
+        <h2 id="questtion"></h2>
+        <div class="answer-Container" id="answerContainer"></div>
+        <div class="button-Container">
+          <button class="btn-standart" onclick="showAnswer()">Lösung</button>
+          <button class="btn-standart" onclick="nextQuestion()">Weiter</button>
+        </div>
+      </div>
+    </main>
+    <footer></footer>
+
+    <script src="quiz.js"></script>
+  </body>
+</html>
