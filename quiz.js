@@ -30,44 +30,43 @@ const questions = [
 ];
 // Start Index for Array
 let startIndex = 0;
-let punkte = 0;
+let score = 0;
 
 //OnLOadListener
-document.addEventListener("DOMContentLoaded", showQuestion(startIndex));
+document.addEventListener("DOMContentLoaded", () => {
+  showQuestion(startIndex);
+});
 
 function showQuestion(index) {
   // Set Question
 
-  let newQuestion = document.getElementById("questtion");
+  const newQuestion = document.getElementById("questtion");
   newQuestion.innerHTML = questions[index].question;
 
-  let answerContainer = document.getElementById("answerContainer");
+  const answerContainer = document.getElementById("answerContainer");
   answerContainer.innerHTML = "";
 
   //   Randomize Answers and Create Answers
+  randomizeAnswer(questions[index].answer).forEach((element) => {
+    let newAnswer = document.createElement("p");
+    newAnswer.classList.add("answer");
+    newAnswer.innerHTML = element;
 
-  let randomAnswer = randomizeAnswer(questions[index].answer).forEach(
-    (element) => {
-      let newAnswer = document.createElement("p");
-      newAnswer.classList.add("answer");
-      newAnswer.innerHTML = element;
-
-      // Set Eventlistener and Check Answers
-      newAnswer.addEventListener("click", () => {
-        if (newAnswer.innerHTML === questions[index].correct) {
-          alert(`Richtig ${newAnswer.innerHTML}`);
-          newAnswer.classList.add("correct");
-          punkte++;
-          setScore(punkte);
-        } else {
-          alert(`${newAnswer.innerHTML} ist leider Falsch`);
-          newAnswer.classList.add("notCorrect");
-        }
-      });
-      answerContainer.appendChild(newAnswer);
-    },
-  );
-  setScore(punkte);
+    // Set Eventlistener and Check Answers
+    newAnswer.addEventListener("click", () => {
+      if (newAnswer.innerHTML === questions[index].correct) {
+        alert(`Richtig ${newAnswer.innerHTML}`);
+        newAnswer.classList.add("correct");
+        score++;
+        setScore(score);
+      } else {
+        alert(`${newAnswer.innerHTML} ist leider Falsch`);
+        newAnswer.classList.add("notCorrect");
+      }
+    });
+    answerContainer.appendChild(newAnswer);
+  });
+  setScore(score);
 }
 
 function nextQuestion() {
@@ -77,7 +76,7 @@ function nextQuestion() {
     console.log("next");
   } else {
     startIndex = 0;
-    punkte = 0;
+    score = 0;
     showQuestion(startIndex);
     console.log("von vorne");
   }
@@ -105,5 +104,5 @@ function randomizeAnswer(answerArray) {
 }
 
 function setScore(currScore) {
-  document.getElementById("score").innerHTML = `Punkte: ${currScore}`;
+  document.getElementById("score").innerHTML = `score: ${currScore}`;
 }
